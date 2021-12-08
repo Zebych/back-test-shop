@@ -1,10 +1,10 @@
-const photo1 = require('./img');
-const photo3 = require('./img');
-const photo2 = require('./img');
-const photo4 = require('./img');
-const photo5 = require('./img');
-const photo7 = require('./img');
-const photo6 = require('./img');
+const photo1 = require('./img/680395566_w640_h640_kruzhka-s-prikolom.jpg');
+const photo3 = require('./img/6-1000x1000.jpg');
+const photo2 = require('./img/6064641689.jpg');
+const photo4 = require('./img/kruzhka_sgushchenka_img.webp');
+const photo5 = require('./img/people_2_mug_chameleon_front_whitered_500.jpg');
+const photo7 = require('./img/pic1white.jpg');
+const photo6 = require('./img/product_57508_0_0_0.jpg');
 
 const express = require('express');
 
