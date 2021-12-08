@@ -1,5 +1,13 @@
+import photo1 from './img';
+import photo3 from './img';
+import photo2 from './img';
+import photo4 from './img';
+import photo5 from './img';
+import photo7 from './img';
+import photo6 from './img';
+
 const express = require('express');
-// const nodemailer = require("nodemailer");
+
 const cors = require("cors")
 
 const app = express();
@@ -8,13 +16,13 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 const arrData = [
-    {name: 'mug1', photo: 'photo1', id: 1, price: 50, toPurchase: 1, inStock: 10},
-    {name: 'mug3', photo: 'photo3', id: 3, price: 90, toPurchase: 1, inStock: 10},
-    {name: 'mug2', photo: 'photo2', id: 2, price: 70, toPurchase: 1, inStock: 10},
-    {name: 'mug4', photo: 'photo4', id: 4, price: 100, toPurchase: 1, inStock: 10},
-    {name: 'mug5', photo: 'photo5', id: 5, price: 110, toPurchase: 1, inStock: 10},
-    {name: 'mug6', photo: 'photo6', id: 6, price: 120, toPurchase: 1, inStock: 10},
-    {name: 'mug7', photo: 'photo7', id: 7, price: 130, toPurchase: 1, inStock: 10},
+    {name: 'mug1', photo: photo1, id: 1, price: 50, toPurchase: 1, inStock: 10},
+    {name: 'mug3', photo: photo3, id: 3, price: 90, toPurchase: 1, inStock: 10},
+    {name: 'mug2', photo: photo2, id: 2, price: 70, toPurchase: 1, inStock: 10},
+    {name: 'mug4', photo: photo4, id: 4, price: 100, toPurchase: 1, inStock: 10},
+    {name: 'mug5', photo: photo5, id: 5, price: 110, toPurchase: 1, inStock: 10},
+    {name: 'mug6', photo: photo6, id: 6, price: 120, toPurchase: 1, inStock: 10},
+    {name: 'mug7', photo: photo7, id: 7, price: 130, toPurchase: 1, inStock: 10},
 ];
 const purchasesData = [];
 
