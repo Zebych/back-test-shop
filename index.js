@@ -1,10 +1,10 @@
-import photo1 from './img';
-import photo3 from './img';
-import photo2 from './img';
-import photo4 from './img';
-import photo5 from './img';
-import photo7 from './img';
-import photo6 from './img';
+const photo1 = require('./img');
+const photo3 = require('./img');
+const photo2 = require('./img');
+const photo4 = require('./img');
+const photo5 = require('./img');
+const photo7 = require('./img');
+const photo6 = require('./img');
 
 const express = require('express');
 
