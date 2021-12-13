@@ -1,18 +1,51 @@
 const express = require('express');
-const resize = require('./img/resize-jimp')
 
 const cors = require("cors")
+const bodyParser = require("body-parser");
+// Mongoose
+const mongoose = require("mongoose");
+mongoose.connect('mongodb://localhost/test-shop', {useMewUrlParser: true});
 
-const app = express();
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+    //we're connected!
+});
+const shopSchema = new mongoose.Schema({
+    name: String,
+    photo: String,
+    id: Number,
+    price: Number,
+    toPurchase: Number,
+    inStock: Number
+})
+
+const shopGoods = mongoose.model('shopGoods',shopSchema )
+//new product
+/*const mag8 = {
+    name: 'mug8',
+    photo: '04_assets/img/6-1000x1000.jpg',
+    id: 8,
+    price: 500,
+    toPurchase: 1,
+    inStock: 10
+}
+const addProduct = async (mag8)=>{
+const newProduct = new shopGoods({mag8})
+return newProduct.save()
+}
+*/
+
+app = express();
 app.use(cors({"origin": "*"}));
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+// app.use(express.urlencoded({extended: true}));
 
-
-const arrData = [
+/*const arrData = [
     {
         name: 'mug1',
-        photo: src = 'img/6-1000x1000.jpg',
+        photo: '04_assets/img/6-1000x1000.jpg',
         id: 1,
         price: 50,
         toPurchase: 1,
@@ -66,17 +99,11 @@ const arrData = [
         toPurchase: 1,
         inStock: 10
     },
-];
+];*/
 const purchasesData = [];
 
 app.get('/test--shop-with-goods', function (req, res) {
-  /*  const width = parseInt(req.query.width)
-    const height = parseInt(req.query.height)
-    const format = req.query.format
-
-    res.type(`img/${format || 'pgn'}`)
-    resize('./img/6-1000x1000.jpg',format,width,height).pipe(res)*/
-    res.send(arrData);
+    res.send(shopGoods.find());
 })
 app.post('/cart', async function (req, res) {
     purchasesData.push(req.body)
