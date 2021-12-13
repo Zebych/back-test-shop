@@ -20,7 +20,7 @@ const arrData = [
     },
     {
         name: 'mug3',
-        photo: '04_assets/img/6064641689.jpg',
+        photo: src ='img/680395566_w640_h640_kruzhka-s-prikolom.jpg',
         id: 3,
         price: 90,
         toPurchase: 1,
@@ -28,7 +28,7 @@ const arrData = [
     },
     {
         name: 'mug2',
-        photo: '04_assets/img/680395566_w640_h640_kruzhka-s-prikolom.jpg',
+        photo: src ='img/6064641689.jpg',
         id: 2,
         price: 70,
         toPurchase: 1,
@@ -36,7 +36,7 @@ const arrData = [
     },
     {
         name: 'mug4',
-        photo: '04_assets/img/kruzhka_sgushchenka_img.webp',
+        photo: src ='img/kruzhka_sgushchenka_img.webp',
         id: 4,
         price: 100,
         toPurchase: 1,
@@ -44,7 +44,7 @@ const arrData = [
     },
     {
         name: 'mug5',
-        photo: '04_assets/img/people_2_mug_chameleon_front_whitered_500.jpg',
+        photo: src ='img/people_2_mug_chameleon_front_whitered_500.jpg',
         id: 5,
         price: 110,
         toPurchase: 1,
@@ -52,7 +52,7 @@ const arrData = [
     },
     {
         name: 'mug6',
-        photo: '04_assets/img/pic1white.jpg',
+        photo: src ='img/pic1white.jpg',
         id: 6,
         price: 120,
         toPurchase: 1,
@@ -60,7 +60,7 @@ const arrData = [
     },
     {
         name: 'mug7',
-        photo: '04_assets/img/product_57508_0_0_0.jpg',
+        photo: src ='img/product_57508_0_0_0.jpg',
         id: 7,
         price: 130,
         toPurchase: 1,
