@@ -12,7 +12,7 @@ app.use(express.urlencoded({extended: true}));
 const arrData = [
     {
         name: 'mug1',
-        photo: 'img/6-1000x1000.jpg',
+        photo: src = 'img/6-1000x1000.jpg',
         id: 1,
         price: 50,
         toPurchase: 1,
