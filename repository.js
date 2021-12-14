@@ -1,5 +1,5 @@
 let mongoose = require("mongoose");
-const readJsonFromFile = require("./fsUtils");
+const {readJsonFromFile} = require("./fsUtils");
 
 let userDataSchema = new mongoose.Schema({
     userName: String,
@@ -23,12 +23,17 @@ let UserData = mongoose.model('userData', userDataSchema);
 const filePath = 'purchaseData.json';
 
 const allGoods = async () => {
-   return  readJsonFromFile(filePath);
+    return readJsonFromFile(filePath);
 }
 const addUserData = async (reqData) => {
     await allGoods()
     let userData = new UserData({reqData});
-    return userData.save();
+    return userData.save(function(err){
+        mongoose.disconnect();  // отключение от базы данных
+
+        if(err) return console.log(err);
+        console.log("Сохранен объект", userData);
+    });
 };
 
 exports.addUserData = addUserData;
