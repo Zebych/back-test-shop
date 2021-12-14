@@ -1,13 +1,29 @@
 const express = require('express');
-const resize = require('./img/resize-jimp')
 
-const cors = require("cors")
+//Для вывода в консоль ошибок promise
+process.on('unhandledRejection',(reason,p)=>{
+    console.log(reason,p);
+});
+
+const cors = require("cors");
+
+const mongoose = require("mongoose");
+const {addUserData, allGoods} = require("./repository");
+
+mongoose.connect('mongodb://localhost/test-shop', {useMewUrlParser: true});
+// mongoose.connect(`mongodb:${process.env.PORT}`, {useMewUrlParser: true});
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+    //we're connected!
+});
+
 
 const app = express();
 app.use(cors({"origin": "*"}));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
 
 const arrData = [
     {
@@ -69,81 +85,23 @@ const arrData = [
 ];
 const purchasesData = [];
 
-app.get('/test--shop-with-goods', function (req, res) {
-  /*  const width = parseInt(req.query.width)
-    const height = parseInt(req.query.height)
-    const format = req.query.format
-
-    res.type(`img/${format || 'pgn'}`)
-    resize('./img/6-1000x1000.jpg',format,width,height).pipe(res)*/
+app.get('/test--shop-with-goods', async (req, res) => {
+    await allGoods()
     res.send(arrData);
-})
-app.post('/cart', async function (req, res) {
-    purchasesData.push(req.body)
-    res.send({result: 'true'})
-    console.log(purchasesData)
+});
+app.post('/cart', async (req, res) => {
+    /*    let userData = req.body.values;
+        let purchases = req.body.data.addedCart;*/
+    let reqData = req.body;
+    await addUserData(reqData);
+    res.send({result: 'true'});
+    console.log(purchasesData);
+});
+app.use((req, res) => {
+    res.send(404)
 })
 
 let port = process.env.PORT || 3010
 app.listen(port, function () {
-    console.log("Example")
-})
-
-/*
-const express = require('express');
-const nodemailer = require("nodemailer");
-const cors = require("cors")
-
-const app = express();
-app.use(cors({"origin": "*"}));
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-
-let smtp_login = process.env.SMTP_LOGIN
-let smtp_password = process.env.SMTP_PASSWORD
-
-let transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    secure: true, // true for 465, false for other ports
-    port: 465,
-    tls: {
-        rejectUnauthorized: true
-    },
-    auth: {
-        user: smtp_login, // generated ethereal user
-        pass: smtp_password, // generated ethereal password
-
-    },
+    console.log("Example");
 });
-
-app.get('/', function (req, res) {
-    res.send("HELLO");
-})
-
-app.post('/sendMessage', async function (req, res) {
-    let {name, email, message} = req.body
-    // send mail with defined transport object
-    let info = await transporter.sendMail({
-        from: "My profile page", // sender address
-        to: "sanechek_1987@mail.ru", // list of receivers
-        subject: "message portfolio", // Subject line
-        html: `<b>сообщение с моего portfolio</b>
-<div>
-<div>
-name: ${name}
-</div>
-<div>
-email: ${email}
-</div>
-<div>
-message: ${message}
-</div>
-</div>`,
-    });
-    res.send("HELLO");
-});
-
-let port = process.env.PORT || 3010
-app.listen(port, function () {
-    console.log("Example")
-})*/
