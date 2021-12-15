@@ -40,7 +40,7 @@ app.use((req, res) => {
     res.send(404)
 })
 
-const port = process.env.PORT || 3010
+const port = process.env.PORT
 app.listen(port, function () {
     console.log("Example");
 });
