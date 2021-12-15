@@ -2,39 +2,87 @@ let mongoose = require("mongoose");
 const {readJsonFromFile} = require("./fsUtils");
 
 let userDataSchema = new mongoose.Schema({
-    userName: String,
-    cartNumber: String,
-    validity: String,
-    password: String
+    addedCart: [{
+        name: String,
+        id: Number,
+        price: Number,
+        toPurchase: Number,
+        inStock: Number,
+        photo: String
+    }],
+        firstLastName: String,
+        cardNumber: String,
+        expirationDate: String,
+        password: String,
+        rememberMe: Boolean
 });
 let goodsSchema = new mongoose.Schema({
     name: String,
-    photo: String,
-    id: String,
-    price: String,
-    toPurchase: String,
-    inStock: String
+    id: Number,
+    price: Number,
+    toPurchase: Number,
+    inStock: Number
+});
+let messageSchema = new mongoose.Schema({
+    message: String,
 });
 
 let shopGoods = mongoose.model('shopGoods', goodsSchema);
 let UserData = mongoose.model('userData', userDataSchema);
+let Message = mongoose.model('message', messageSchema);
 
 
-const filePath = 'purchaseData.json';
+const filePath = 'goodsData.json';
 
 const allGoods = async () => {
     return readJsonFromFile(filePath);
 }
-const addUserData = async (reqData) => {
-    await allGoods()
+/*const addUserData = async (reqData) => {
+    // await allGoods()
     let userData = new UserData({reqData});
-    return userData.save(function(err){
-        mongoose.disconnect();  // отключение от базы данных
-
-        if(err) return console.log(err);
-        console.log("Сохранен объект", userData);
-    });
+    debugger;
+    return userData.save()
+        .then(function (doc) {
+            console.log("Сохранен объект", doc);
+            mongoose.disconnect();  // отключение от базы данных
+        })
+        .catch(function (err) {
+            console.log(err);
+            mongoose.disconnect();
+        });
+    ;
+};*/
+const addUserData = async (userName,cardNumber,expirationDate,password,rememberMe) => {
+    // await allGoods()
+    let userData = new UserData({userName,cardNumber,expirationDate,password,rememberMe});
+    debugger;
+    return userData.save()
+        .then(function (doc) {
+            console.log("Сохранен объект", doc);
+            mongoose.disconnect();  // отключение от базы данных
+        })
+        .catch(function (err) {
+            console.log(err);
+            mongoose.disconnect();
+        });
+    ;
+};
+const addMessage = async (message) => {
+    // await allGoods()
+    let messageValue = new Message({message});
+    debugger;
+    return messageValue.save()
+        .then(function (doc) {
+            console.log("Сохранен объект", doc);
+            mongoose.disconnect();  // отключение от базы данных
+        })
+        .catch(function (err) {
+            console.log(err);
+            mongoose.disconnect();
+        });
+    ;
 };
 
 exports.addUserData = addUserData;
 exports.allGoods = allGoods;
+exports.addMessage = addMessage;

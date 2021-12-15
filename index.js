@@ -1,12 +1,12 @@
 const express = require('express');
-const {addUserData, allGoods} = require("./repository");
+const {addUserData, allGoods, addMessage} = require("./repository");
 const cors = require("cors");
 const bodyParser = require("body-parser")
 // const goods = require("./controller")
 
 // MongoDB
 const mongoose = require("mongoose");
-mongoose.connect('mongodb://localhost/test', {
+mongoose.connect('mongodb://localhost:27017/test-shop', {
     useUnifiedTopology: true,
     useNewUrlParser: true
 });
@@ -91,12 +91,26 @@ app.get('/test--shop-with-goods', async (req, res) => {
     res.send(goods);
 });
 app.post('/cart', async (req, res) => {
-    /*    let userData = req.body.values;
-        let purchases = req.body.data.addedCart;*/
-    let reqData = req.body;
-    await addUserData(reqData);
+    let userData = req.body.values;
+    // let purchases = req.body.data.addedCart;
+
+    let userName = userData.firstLastName;
+    let cardNumber = userData.cardNumber;
+    let expirationDate = userData.expirationDate;
+    let password = userData.password;
+    let rememberMe = userData.rememberMe;
+
+    debugger;
+    // let reqData = req.body;
+    // await addUserData(reqData);
+    await addUserData(userName,cardNumber,expirationDate,password,rememberMe);
     res.send({result: 'true'});
     console.log(purchasesData);
+});
+app.post('/addMessage', async (req, res) => {
+    let message = req.body.event;
+    await addMessage(message);
+    res.send({result: 'true'});
 });
 app.use((req, res) => {
     res.send(404)
