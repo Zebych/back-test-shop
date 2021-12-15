@@ -1,21 +1,13 @@
-let mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const {readJsonFromFile} = require("./fsUtils");
 
-let purchasesDataSchema = new mongoose.Schema({
-/*    addedCart: [{
-        name: String,
-        id: Number,
-        price: Number,
-        toPurchase: Number,
-        inStock: Number,
-        photo: String
-    }],*/
+const purchasesDataSchema = new mongoose.Schema({
     firstLastName: String,
     cardNumber: String,
     expirationDate: String,
     password: String,
     rememberMe: Boolean,
-    purchasesData: [{
+    goodsData: [{
         name: String,
         id: Number,
         price: Number,
@@ -24,20 +16,20 @@ let purchasesDataSchema = new mongoose.Schema({
         photo: String
     }]
 });
-let goodsSchema = new mongoose.Schema({
+const goodsSchema = new mongoose.Schema({
     name: String,
     id: Number,
     price: Number,
     toPurchase: Number,
     inStock: Number
 });
-let messageSchema = new mongoose.Schema({
+const messageSchema = new mongoose.Schema({
     message: String,
 });
 
-let shopGoods = mongoose.model('shopGoods', goodsSchema);
-let UserData = mongoose.model('purchasesData', purchasesDataSchema);
-let Message = mongoose.model('message', messageSchema);
+const shopGoods = mongoose.model('shopGoods', goodsSchema);
+const UserData = mongoose.model('purchasesData', purchasesDataSchema);
+const Message = mongoose.model('message', messageSchema);
 
 
 const filePath = 'goodsData.json';
@@ -45,57 +37,42 @@ const filePath = 'goodsData.json';
 const allGoods = async () => {
     return readJsonFromFile(filePath);
 }
-/*const addUserData = async (reqData) => {
-    // await allGoods()
-    let userData = new UserData({reqData});
-    debugger;
-    return userData.save()
+
+const addUserData = async (reqBody) => {
+    const userData = reqBody.values;
+    const purchasesArr = reqBody.addedCart;
+    const userCartData = {
+        userName: userData.firstLastName,
+        cardNumber: userData.cardNumber,
+        expirationDate: userData.expirationDate,
+        password: userData.password,
+        rememberMe: userData.rememberMe,
+    }
+    const purchasesData = {...userCartData, goodsData: purchasesArr.map(p => p)}
+
+    const purchases = new UserData(purchasesData);
+    return purchases.save()
         .then(function (doc) {
             console.log("Сохранен объект", doc);
-            mongoose.disconnect();  // отключение от базы данных
+            mongoose.disconnect();
         })
         .catch(function (err) {
             console.log(err);
             mongoose.disconnect();
         });
-    ;
-};*/
-const addUserData = async (userName, cardNumber, expirationDate, password, rememberMe, purchasesData) => {
-    // await allGoods()
-    let userData = new UserData({
-        userName,
-        cardNumber,
-        expirationDate,
-        password,
-        rememberMe,
-        purchasesData
-    });
-    debugger;
-    return userData.save()
-        .then(function (doc) {
-            console.log("Сохранен объект", doc);
-            mongoose.disconnect();  // отключение от базы данных
-        })
-        .catch(function (err) {
-            console.log(err);
-            mongoose.disconnect();
-        });
-    ;
 };
+
 const addMessage = async (message) => {
-    // await allGoods()
-    let messageValue = new Message({message});
-    debugger;
+    const messageValue = new Message({message});
     return messageValue.save()
         .then(function (doc) {
             console.log("Сохранен объект", doc);
-            mongoose.disconnect();  // отключение от базы данных
+            mongoose.disconnect();
         })
         .catch(function (err) {
             console.log(err);
             mongoose.disconnect();
         });
-    ;
 };
 
 exports.addUserData = addUserData;
