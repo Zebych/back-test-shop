@@ -38,7 +38,7 @@ const allGoods = async () => {
     return readJsonFromFile(filePath);
 }
 
-const addUserData = async (reqBody) => {
+const addPurchasesData = async (reqBody) => {
     const userData = reqBody.values;
     const purchasesArr = reqBody.addedCart;
     const userCartData = {
@@ -75,6 +75,6 @@ const addMessage = async (message) => {
         });
 };
 
-exports.addUserData = addUserData;
+exports.addPurchasesData = addPurchasesData;
 exports.allGoods = allGoods;
 exports.addMessage = addMessage;

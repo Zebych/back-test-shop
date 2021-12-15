@@ -1,10 +1,10 @@
 const express = require('express');
-const {addUserData, allGoods, addMessage} = require("./repository");
+const {addPurchasesData, allGoods, addMessage} = require("./repository");
 const cors = require("cors");
 const bodyParser = require("body-parser")
 
 // MongoDB
-const mongoose = require("mongoose");
+/*const mongoose = require("mongoose");
 mongoose.connect('mongodb://localhost:27017/test-shop', {
     useUnifiedTopology: true,
     useNewUrlParser: true
@@ -14,7 +14,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
     //we're connected!
-});
+});*/
 
 
 const app = express();
@@ -28,7 +28,7 @@ app.get('/test--shop-with-goods', async (req, res) => {
 });
 app.post('/cart', async (req, res) => {
     const reqBody = req.body;
-    await addUserData(reqBody);
+    await addPurchasesData(reqBody);
     res.send({result: 'true'});
 });
 app.post('/addMessage', async (req, res) => {
