@@ -1,20 +1,28 @@
 let mongoose = require("mongoose");
 const {readJsonFromFile} = require("./fsUtils");
 
-let userDataSchema = new mongoose.Schema({
-    addedCart: [{
+let purchasesDataSchema = new mongoose.Schema({
+/*    addedCart: [{
         name: String,
         id: Number,
         price: Number,
         toPurchase: Number,
         inStock: Number,
         photo: String
-    }],
-        firstLastName: String,
-        cardNumber: String,
-        expirationDate: String,
-        password: String,
-        rememberMe: Boolean
+    }],*/
+    firstLastName: String,
+    cardNumber: String,
+    expirationDate: String,
+    password: String,
+    rememberMe: Boolean,
+    purchasesData: [{
+        name: String,
+        id: Number,
+        price: Number,
+        toPurchase: Number,
+        inStock: Number,
+        photo: String
+    }]
 });
 let goodsSchema = new mongoose.Schema({
     name: String,
@@ -28,7 +36,7 @@ let messageSchema = new mongoose.Schema({
 });
 
 let shopGoods = mongoose.model('shopGoods', goodsSchema);
-let UserData = mongoose.model('userData', userDataSchema);
+let UserData = mongoose.model('purchasesData', purchasesDataSchema);
 let Message = mongoose.model('message', messageSchema);
 
 
@@ -52,9 +60,16 @@ const allGoods = async () => {
         });
     ;
 };*/
-const addUserData = async (userName,cardNumber,expirationDate,password,rememberMe) => {
+const addUserData = async (userName, cardNumber, expirationDate, password, rememberMe, purchasesData) => {
     // await allGoods()
-    let userData = new UserData({userName,cardNumber,expirationDate,password,rememberMe});
+    let userData = new UserData({
+        userName,
+        cardNumber,
+        expirationDate,
+        password,
+        rememberMe,
+        purchasesData
+    });
     debugger;
     return userData.save()
         .then(function (doc) {

@@ -84,7 +84,7 @@ app.use(bodyParser.json());
 //         inStock: 10
 //     },
 // ];
-const purchasesData = [];
+// const purchasesData = [];
 
 app.get('/test--shop-with-goods', async (req, res) => {
     let goods = await allGoods()
@@ -92,20 +92,20 @@ app.get('/test--shop-with-goods', async (req, res) => {
 });
 app.post('/cart', async (req, res) => {
     let userData = req.body.values;
-    // let purchases = req.body.data.addedCart;
+    let purchasesArr = req.body.addedCart;
 
     let userName = userData.firstLastName;
     let cardNumber = userData.cardNumber;
     let expirationDate = userData.expirationDate;
     let password = userData.password;
     let rememberMe = userData.rememberMe;
+    let purchasesData = purchasesArr.map(p => p)
 
     debugger;
     // let reqData = req.body;
     // await addUserData(reqData);
-    await addUserData(userName,cardNumber,expirationDate,password,rememberMe);
+    await addUserData(userName, cardNumber, expirationDate, password, rememberMe, purchasesData);
     res.send({result: 'true'});
-    console.log(purchasesData);
 });
 app.post('/addMessage', async (req, res) => {
     let message = req.body.event;
