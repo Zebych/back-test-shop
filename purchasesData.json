@@ -1,8 +1,1 @@
-[
-    {
-        "userName": "IVAN IVANOV",
-        "cartNumber": "0000 0000 0000 0000",
-        "validity": "00/00",
-        "password": "000"
-    }
-]
+{"userName":"dsfd dfds","cardNumber":"6666 6666 6666 6666","expirationDate":"66/66","password":"666","rememberMe":false,"goodsData":[{"name":"mug2","id":2,"price":150,"toPurchase":1,"inStock":10,"photo":"/test--shop-with-goods/static/media/680395566_w640_h640_kruzhka-s-prikolom.6603be42.jpg"},{"name":"mug3","id":3,"price":90,"toPurchase":1,"inStock":10,"photo":"/test--shop-with-goods/static/media/6064641689.2e40e89d.jpg"}]}

@@ -1,5 +1,5 @@
 const express = require('express');
-const {addPurchasesData, allGoods, addMessage} = require("./repository");
+const {addPurchasesData, allGoods} = require("./repository");
 const cors = require("cors");
 const bodyParser = require("body-parser")
 
@@ -31,16 +31,11 @@ app.post('/cart', async (req, res) => {
     await addPurchasesData(reqBody);
     res.send({result: 'true'});
 });
-app.post('/addMessage', async (req, res) => {
-    const message = req.body.event;
-    await addMessage(message);
-    res.send({result: 'true'});
-});
 app.use((req, res) => {
     res.send(404)
 })
 
-const port = process.env.PORT
+const port = process.env.PORT || 3010
 app.listen(port, function () {
     console.log("Example");
 });

@@ -16,7 +16,7 @@ exports.readJsonFromFile = (filePath) => {
 //Вспомогательная функция для записи данных в JSON файл
 exports.writeJsonToFile = (filePath,data)=>{
     let promise = new Promise((resolve,reject)=>{
-        fs.write(filePath,JSON.stringify(data),(err)=>{
+        fs.writeFile(filePath,JSON.stringify(data),(err)=>{
             if(err)reject(err);
             resolve();
         });

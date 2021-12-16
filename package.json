@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "SET PORT=3010 && nodemon --inspect index.js localhost 3010",
+    "start": "SET MONGOCON=mongodb://localhost:27017/test-shop&& SET PORT=3010 && nodemon --inspect index.js localhost 3010",
     "simple-start": "SET PORT=3010 && node index.js"
   },
   "repository": {
