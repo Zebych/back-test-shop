@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const {readJsonFromFile} = require("./fsUtils");
+const {readJsonFromFile, writeJsonToFile} = require("./fsUtils");
 
 const purchasesDataSchema = new mongoose.Schema({
     firstLastName: String,
@@ -23,16 +23,13 @@ const goodsSchema = new mongoose.Schema({
     toPurchase: Number,
     inStock: Number
 });
-const messageSchema = new mongoose.Schema({
-    message: String,
-});
 
 const shopGoods = mongoose.model('shopGoods', goodsSchema);
 const UserData = mongoose.model('purchasesData', purchasesDataSchema);
-const Message = mongoose.model('message', messageSchema);
 
 
 const filePath = 'goodsData.json';
+const filePathPurchases = 'purchasesData.json';
 
 const allGoods = async () => {
     return readJsonFromFile(filePath);
@@ -51,30 +48,20 @@ const addPurchasesData = async (reqBody) => {
     const purchasesData = {...userCartData, goodsData: purchasesArr.map(p => p)}
 
     const purchases = new UserData(purchasesData);
-    return purchases.save()
-        .then(function (doc) {
-            console.log("Сохранен объект", doc);
-            mongoose.disconnect();
-        })
-        .catch(function (err) {
-            console.log(err);
-            mongoose.disconnect();
-        });
-};
+    return (
+        await writeJsonToFile(filePathPurchases, purchasesData),
+            purchases.save()
+                .then(function (doc) {
+                    console.log("Сохранен объект", doc);
+                    mongoose.disconnect();
+                })
+                .catch(function (err) {
+                    console.log(err);
+                    mongoose.disconnect();
+                })
 
-const addMessage = async (message) => {
-    const messageValue = new Message({message});
-    return messageValue.save()
-        .then(function (doc) {
-            console.log("Сохранен объект", doc);
-            mongoose.disconnect();
-        })
-        .catch(function (err) {
-            console.log(err);
-            mongoose.disconnect();
-        });
+    )
 };
 
 exports.addPurchasesData = addPurchasesData;
 exports.allGoods = allGoods;
-exports.addMessage = addMessage;
