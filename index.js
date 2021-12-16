@@ -4,8 +4,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser")
 
 // MongoDB
-/*const mongoose = require("mongoose");
-mongoose.connect('mongodb://localhost:27017/test-shop', {
+const mongoose = require("mongoose");
+mongoose.connect(process.env.MONGOCON, {
     useUnifiedTopology: true,
     useNewUrlParser: true
 });
@@ -14,7 +14,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
     //we're connected!
-});*/
+});
 
 
 const app = express();
