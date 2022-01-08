@@ -22,7 +22,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-app.get('/', async (req, res) => {
+app.get('/test--shop-with-goods', async (req, res) => {
     const goods = await allGoods()
     res.send(goods);
 });
